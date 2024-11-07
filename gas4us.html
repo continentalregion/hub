@@ -1,0 +1,239 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engaging Widget Sections</title>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div id="root"></div>
+    <script type="text/babel">
+        const Home = ({ setSection }) => {
+            return (
+                <div className="flex flex-col items-center p-4 space-y-4">
+                    <h1 className="text-4xl font-bold text-blue-600 mb-8">Welcome to Our Widget Hub</h1>
+                    <button onClick={() => setSection('interax')} className="w-full bg-blue-500 text-white p-4 rounded-lg shadow-md hover:bg-blue-600 transition duration-300">
+                        AI Chatbot of Interax
+                    </button>
+                    <button onClick={() => setSection('dodo')} className="w-full bg-green-500 text-white p-4 rounded-lg shadow-md hover:bg-green-600 transition duration-300">
+                        Dodo Widget for Crypto
+                    </button>
+                    <button onClick={() => setSection('bitrefill')} className="w-full bg-yellow-500 text-white p-4 rounded-lg shadow-md hover:bg-yellow-600 transition duration-300">
+                        Bitrefill Widget for Gift Card
+                    </button>
+                    <button onClick={() => setSection('reviews')} className="w-full bg-purple-500 text-white p-4 rounded-lg shadow-md hover:bg-purple-600 transition duration-300">
+                        Reviews Page
+                    </button>
+                </div>
+            );
+        };
+
+        const InteraxSection = ({ setSection }) => {
+            React.useEffect(() => {
+                window.history.pushState({}, '', '/interax');
+            }, []);
+            return (
+                <div className="flex flex-col items-center p-4 space-y-4">
+                    <button onClick={() => setSection('home')} className="self-start bg-gray-200 text-black p-2 rounded-lg shadow-md hover:bg-gray-300 transition duration-300">
+                        Back to Home
+                    </button>
+                    <div className="w-full bg-white p-4 rounded-lg shadow-md">
+                        <h2 className="text-xl font-bold mb-4 text-blue-600">Interax AI Widget</h2>
+                        <iframe 
+                            src="https://iframe.interaxai.com/66c35b0e9ee83ec801e282d4" 
+                            frameborder="0"
+                            width="100%"
+                            height="500px"
+                        ></iframe>
+                    </div>
+                </div>
+            );
+        };
+
+        const DodoSection = ({ setSection }) => {
+            React.useEffect(() => {
+                window.history.pushState({}, '', '/dodo');
+            }, []);
+            return (
+                <div className="flex flex-col items-center p-4 space-y-4">
+                    <button onClick={() => setSection('home')} className="self-start bg-gray-200 text-black p-2 rounded-lg shadow-md hover:bg-gray-300 transition duration-300">
+                        Back to Home
+                    </button>
+                    <div className="w-full bg-white p-4 rounded-lg shadow-md">
+                        <h2 className="text-xl font-bold mb-4 text-green-600">Dodoex Widget</h2>
+                        <iframe
+                            src="https://swap.dodoex.io/gas4us?full-screen=true"
+                            width="375px"
+                            height="494px"
+                            frameborder="0"
+                            style={{ borderRadius: '16px' }}
+                        />
+                    </div>
+                </div>
+            );
+        };
+
+        const BitrefillSection = ({ setSection }) => {
+            React.useEffect(() => {
+                window.history.pushState({}, '', '/bitrefill');
+            }, []);
+            return (
+                <div className="flex flex-col items-center p-4 space-y-4">
+                    <button onClick={() => setSection('home')} className="self-start bg-gray-200 text-black p-2 rounded-lg shadow-md hover:bg-gray-300 transition duration-300">
+                        Back to Home
+                    </button>
+                    <div className="w-full bg-white p-4 rounded-lg shadow-md">
+                        <h2 className="text-xl font-bold mb-4 text-yellow-600">Bitrefill Widget (Pending Approval)</h2>
+                        <div className="h-64 flex items-center justify-center text-gray-500">
+                            Blank Section
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const ReviewsSection = ({ setSection }) => {
+            const [token, setToken] = React.useState('');
+            const [search, setSearch] = React.useState('');
+            const [reviews, setReviews] = React.useState([]);
+            const [brands, setBrands] = React.useState(['Zara', 'Nike', 'Mediaworld', 'Apple', 'Samsung']);
+            const [topBrands, setTopBrands] = React.useState([
+                { name: 'Zara', reviews: 120, rating: 4.5 },
+                { name: 'Nike', reviews: 200, rating: 4.7 },
+                { name: 'Mediaworld', reviews: 80, rating: 4.2 },
+                { name: 'Apple', reviews: 150, rating: 4.8 },
+                { name: 'Samsung', reviews: 100, rating: 4.3 }
+            ]);
+
+            const handleRegister = () => {
+                const uniqueToken = `EU-${Math.floor(Math.random() * 350000000)}`;
+                setToken(uniqueToken);
+                alert(`Your unique token is: ${uniqueToken}`);
+            };
+
+            const handleSearch = (e) => {
+                setSearch(e.target.value);
+            };
+
+            const handleReviewSubmit = (brand) => {
+                const review = prompt(`Leave a review for ${brand}`);
+                if (review) {
+                    setReviews([...reviews, { brand, review }]);
+                }
+            };
+
+            React.useEffect(() => {
+                window.history.pushState({}, '', '/reviews');
+            }, []);
+
+            return (
+                <div className="flex flex-col items-center p-4 space-y-4">
+                    <button onClick={() => setSection('home')} className="self-start bg-gray-200 text-black p-2 rounded-lg shadow-md hover:bg-gray-300 transition duration-300">
+                        Back to Home
+                    </button>
+                    <div className="w-full bg-white p-4 rounded-lg shadow-md">
+                        <h2 className="text-xl font-bold mb-4 text-purple-600">Reviews Page</h2>
+                        {!token ? (
+                            <div className="mb-4">
+                                <button onClick={handleRegister} className="bg-purple-500 text-white p-2 rounded-lg shadow-md hover:bg-purple-600 transition duration-300">
+                                    Register and Get Your Unique Token
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="mb-4">
+                                <p>Your unique token: <span className="font-bold">{token}</span></p>
+                            </div>
+                        )}
+                        <div className="mb-4">
+                            <input
+                                type="text"
+                                placeholder="Search for brands..."
+                                value={search}
+                                onChange={handleSearch}
+                                className="w-full p-2 border rounded-lg"
+                            />
+                        </div>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <h3 className="text-lg font-bold mb-2">Brands</h3>
+                                <ul>
+                                    {brands.filter(brand => brand.toLowerCase().includes(search.toLowerCase())).map((brand, index) => (
+                                        <li key={index} className="mb-2">
+                                            <div className="flex justify-between items-center">
+                                                <span>{brand}</span>
+                                                <button onClick={() => handleReviewSubmit(brand)} className="bg-purple-500 text-white p-1 rounded-lg shadow-md hover:bg-purple-600 transition duration-300">
+                                                    Leave a Review
+                                                </button>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                                <div className="mt-4">
+                                    <h3 className="text-lg font-bold mb-2">Recent Reviews</h3>
+                                    <ul>
+                                        {reviews.map((review, index) => (
+                                            <li key={index} className="mb-2">
+                                                <div className="p-2 border rounded-lg">
+                                                    <p className="font-bold">{review.brand}</p>
+                                                    <p>{review.review}</p>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 className="text-lg font-bold mb-2">Top Brands</h3>
+                                <ul>
+                                    {topBrands.map((brand, index) => (
+                                        <li key={index} className="mb-2">
+                                            <div className="p-2 border rounded-lg">
+                                                <p className="font-bold">{brand.name}</p>
+                                                <p>Reviews: {brand.reviews}</p>
+                                                <p>Rating: {brand.rating} / 5</p>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        const App = () => {
+            const [section, setSection] = React.useState('home');
+
+            React.useEffect(() => {
+                const path = window.location.pathname;
+                if (path === '/interax') setSection('interax');
+                else if (path === '/dodo') setSection('dodo');
+                else if (path === '/bitrefill') setSection('bitrefill');
+                else if (path === '/reviews') setSection('reviews');
+                else setSection('home');
+            }, []);
+
+            return (
+                <div className="min-h-screen flex items-center justify-center">
+                    {section === 'home' && <Home setSection={setSection} />}
+                    {section === 'interax' && <InteraxSection setSection={setSection} />}
+                    {section === 'dodo' && <DodoSection setSection={setSection} />}
+                    {section === 'bitrefill' && <BitrefillSection setSection={setSection} />}
+                    {section === 'reviews' && <ReviewsSection setSection={setSection} />}
+                </div>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
