@@ -35,3 +35,5 @@ const fetchChatbotResponse = async () => {
         console.error('Error:', error);
     }
 };
+
+export default fetchChatbotResponse; // Assicurati di esportare la funzione
