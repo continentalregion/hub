@@ -31,7 +31,7 @@
                 const headers = {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer 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' // Your API key
+                    'Authorization': `Bearer ${process.env.PERPLEXITY_API_KEY}` // Fetch from your project's environment variables
                 };
                 const body = {
                     "model": "pplx-7b-online",
@@ -100,6 +100,10 @@
             );
         };
 
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
