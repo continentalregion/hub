@@ -3,7 +3,7 @@ const fetchChatbotResponse = async () => {
     const headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': `Bearer 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` // Your API key
+        'Authorization': `Bearer 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` // La tua chiave API
     };
     const body = {
         "model": "pplx-7b-online",
