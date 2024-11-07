@@ -13,6 +13,7 @@
 </head>
 <body class="bg-gray-100">
     <div id="root"></div>
+    <script type="text/babel" src="./api.js"></script> <!-- Importa il file api.js -->
     <script type="text/babel">
         const Home = ({ setSection }) => {
             return (
@@ -26,10 +27,6 @@
         };
 
         const PerplexitySection = ({ setSection }) => {
-            React.useEffect(() => {
-                window.history.pushState({}, '', '/perplexity');
-            }, []);
-
             return (
                 <div className="flex flex-col items-center p-4 space-y-4">
                     <button onClick={() => setSection('home')} className="self-start bg-gray-200 text-black p-2 rounded-lg shadow-md hover:bg-gray-300 transition duration-300">
@@ -43,44 +40,6 @@
                     </div>
                 </div>
             );
-        };
-
-        const fetchChatbotResponse = async () => {
-            const url = 'https://api.perplexity.ai/chat/completions';
-            const headers = {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer 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` // Your API key
-            };
-            const body = {
-                "model": "pplx-7b-online",
-                "stream": false,
-                "max_tokens": 1024,
-                "frequency_penalty": 1,
-                "temperature": 0.0,
-                "messages": [
-                    {
-                        "role": "system",
-                        "content": "Be precise and concise in your responses."
-                    },
-                    {
-                        "role": "user",
-                        "content": "How many stars are there in our galaxy?"
-                    }
-                ]
-            };
-
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: headers,
-                    body: JSON.stringify(body)
-                });
-                const data = await response.json();
-                document.getElementById('chatbot-response').innerText = data.choices[0].message.content;
-            } catch (error) {
-                console.error('Error:', error);
-            }
         };
 
         const App = () => {
@@ -102,9 +61,5 @@
 
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
-</body>
-</html>
-        ReactDOM.render(<App />, document.getElementById('root'));
-    </script><script src="./api.js"></script> <!-- Assicurati che il percorso sia corretto -->
 </body>
 </html>
