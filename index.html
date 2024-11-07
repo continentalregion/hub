@@ -7,14 +7,52 @@
     <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
     <style>
         body { font-family: 'Arial', sans-serif; }
     </style>
 </head>
 <body class="bg-gray-100">
     <div id="root"></div>
-    <script type="text/babel" src="./api.js"></script> <!-- Importa il file api.js -->
     <script type="text/babel">
+        const fetchChatbotResponse = async () => {
+            const url = 'https://api.perplexity.ai/chat/completions';
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer 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`
+            };
+            const body = {
+                "model": "pplx-7b-online",
+                "stream": false,
+                "max_tokens": 1024,
+                "frequency_penalty": 1,
+                "temperature": 0.0,
+                "messages": [
+                    {
+                        "role": "system",
+                        "content": "Be precise and concise in your responses."
+                    },
+                    {
+                        "role": "user",
+                        "content": "How many stars are there in our galaxy?"
+                    }
+                ]
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(body)
+                });
+                const data = await response.json();
+                document.getElementById('chatbot-response').innerText = data.choices[0].message.content;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
         const Home = ({ setSection }) => {
             return (
                 <div className="flex flex-col items-center p-4 space-y-4">
@@ -34,9 +72,8 @@
                     </button>
                     <div className="w-full bg-white p-4 rounded-lg shadow-md">
                         <h2 className="text-xl font-bold mb-4 text-purple-600">Perplexity AI Chatbot</h2>
-                        {/* Display the chatbot response here */}
                         <div id="chatbot-response" className="mt-2"></div>
-                        <button onClick={fetchChatbotResponse} className="mt-4 bg-blue-500 text-white p-2 rounded-lg">Get Response</button> <!-- Pulsante per ottenere la risposta -->
+                        <button onClick={fetchChatbotResponse} className="mt-4 bg-blue-500 text-white p-2 rounded-lg">Get Response</button>
                     </div>
                 </div>
             );
