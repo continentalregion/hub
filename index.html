@@ -26,47 +26,8 @@
         };
 
         const PerplexitySection = ({ setSection }) => {
-            const handleChatRequest = async () => {
-                const url = 'https://api.perplexity.ai/chat/completions';
-                const headers = {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${process.env.PERPLEXITY_API_KEY}` // Fetch from your project's environment variables
-                };
-                const body = {
-                    "model": "pplx-7b-online",
-                    "stream": false,
-                    "max_tokens": 1024,
-                    "frequency_penalty": 1,
-                    "temperature": 0.0,
-                    "messages": [
-                        {
-                            "role": "system",
-                            "content": "Be precise and concise in your responses."
-                        },
-                        {
-                            "role": "user",
-                            "content": "How many stars are there in our galaxy?"
-                        }
-                    ]
-                };
-
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: headers,
-                        body: JSON.stringify(body)
-                    });
-                    const data = await response.json();
-                    document.getElementById('chatbot-response').innerText = data.choices[0].message.content;
-                } catch (error) {
-                    console.error('Error:', error);
-                }
-            };
-
             React.useEffect(() => {
                 window.history.pushState({}, '', '/perplexity');
-                handleChatRequest(); // Call the chat request when the section is loaded
             }, []);
 
             return (
@@ -78,9 +39,48 @@
                         <h2 className="text-xl font-bold mb-4 text-purple-600">Perplexity AI Chatbot</h2>
                         {/* Display the chatbot response here */}
                         <div id="chatbot-response" className="mt-2"></div>
+                        <button onClick={fetchChatbotResponse} className="mt-4 bg-blue-500 text-white p-2 rounded-lg">Get Response</button>
                     </div>
                 </div>
             );
+        };
+
+        const fetchChatbotResponse = async () => {
+            const url = 'https://api.perplexity.ai/chat/completions';
+            const headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer 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` // Your API key
+            };
+            const body = {
+                "model": "pplx-7b-online",
+                "stream": false,
+                "max_tokens": 1024,
+                "frequency_penalty": 1,
+                "temperature": 0.0,
+                "messages": [
+                    {
+                        "role": "system",
+                        "content": "Be precise and concise in your responses."
+                    },
+                    {
+                        "role": "user",
+                        "content": "How many stars are there in our galaxy?"
+                    }
+                ]
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(body)
+                });
+                const data = await response.json();
+                document.getElementById('chatbot-response').innerText = data.choices[0].message.content;
+            } catch (error) {
+                console.error('Error:', error);
+            }
         };
 
         const App = () => {
