@@ -70,10 +70,12 @@
                     <button onClick={() => setSection('home')} className="self-start bg-gray-200 text-black p-2 rounded-lg shadow-md hover:bg-gray-300 transition duration-300">
                         Back to Home
                     </button>
-                    <div className="w-full bg-white p-4 rounded-lg shadow-md">
-                        <h2 className="text-xl font-bold mb-4 text-purple-600">Perplexity AI Chatbot</h2>
-                        <div id="chatbot-response" className="mt-2"></div>
-                        <button onClick={fetchChatbotResponse} className="mt-4 bg-blue-500 text-white p-2 rounded-lg">Get Response</button>
+                    <div className="w-full bg-white p-6 rounded-lg shadow-md">
+                        <h2 className="text-2xl font-bold mb-4 text-purple-600">Perplexity AI Chatbot</h2>
+                        <div id="chatbot-response" className="mt-2 p-4 bg-gray-100 rounded-lg min-h-[100px]"></div>
+                        <button onClick={fetchChatbotResponse} className="mt-4 bg-blue-500 text-white p-3 rounded-lg shadow-md hover:bg-blue-600 transition duration-300">
+                            Get Response
+                        </button>
                     </div>
                 </div>
             );
