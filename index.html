@@ -53,6 +53,19 @@
             }
         };
 
+        const sendRequest = async () => {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                body: JSON.stringify({ messages: [{ role: 'user', content: 'Hello' }] }),
+                headers: {
+                    'content-type': 'application/json',
+                },
+            });
+
+            const chat = await response.text();
+            document.getElementById('chat').innerText = chat;
+        };
+
         const Home = ({ setSection }) => {
             return (
                 <div className="flex flex-col items-center p-4 space-y-4">
@@ -75,6 +88,10 @@
                         <div id="chatbot-response" className="mt-2 p-4 bg-gray-100 rounded-lg min-h-[100px]"></div>
                         <button onClick={fetchChatbotResponse} className="mt-4 bg-blue-500 text-white p-3 rounded-lg shadow-md hover:bg-blue-600 transition duration-300">
                             Get Response
+                        </button>
+                        <div id="chat" className="mt-4 p-4 bg-gray-100 rounded-lg min-h-[100px]"></div>
+                        <button onClick={sendRequest} className="mt-4 bg-green-500 text-white p-3 rounded-lg shadow-md hover:bg-green-600 transition duration-300">
+                            Request
                         </button>
                     </div>
                 </div>
